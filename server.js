@@ -2,7 +2,16 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-app.use(...);
+
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 db.sequelize.sync();
@@ -50,3 +59,7 @@ function initial() {
     name: "admin"
   });
 }
+
+//routes 
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
